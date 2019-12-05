@@ -51,6 +51,17 @@ class Subscriptions {
   }
 
   /**
+   * List All subscriptions
+   *
+   * @param array $query
+   * @return mixed
+   * @throws Exception
+   */
+  public function listAll($query = []) {
+    return $this->client->get(self::BASE_URL, $query);
+  }
+
+  /**
    * Update a subscription
    *
    * Update details of an existing subscription.
