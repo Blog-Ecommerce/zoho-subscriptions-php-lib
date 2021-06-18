@@ -7,10 +7,9 @@ use Exception;
 
 /**
  * Class HostedPages
- *
  * @link https://www.zoho.com/subscriptions/api/v1/#Hosted-Pages
  *
- * @package App\Libs\Zoho\Subscriptions
+ * @package CapsuleB\ZohoSubscriptions\Resources*
  * @property Client $client
  */
 class HostedPages {

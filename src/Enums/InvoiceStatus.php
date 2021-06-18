@@ -1,6 +1,6 @@
 <?php
 
-namespace ZohoSubscriptions\Enums;
+namespace CapsuleB\ZohoSubscriptions\Enums;
 
 /**
  * Class InvoiceStatus

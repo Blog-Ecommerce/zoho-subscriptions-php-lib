@@ -22,7 +22,7 @@ use CapsuleB\ZohoSubscriptions\Resources\Subscriptions;
 
 /**
  * Class Client
- * @package ZohoSubscriptions
+ * @package CapsuleB\ZohoSubscriptions
  *
  * @property $apiKey
  * @property $baseUrl

@@ -7,8 +7,8 @@ use Exception;
 
 /**
  * Class Cards
- * @package ZohoSubscriptions\Resources
  *
+ * @package CapsuleB\ZohoSubscriptions\Resources*
  * @property Client $client
  */
 class Cards {
