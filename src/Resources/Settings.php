@@ -57,4 +57,12 @@ class Settings {
     return $this->client->get([self::BASE_URL, 'taxauthorities']);
   }
 
+  /**
+   *
+   * @throws Exception
+   */
+  public function retrieveChurnMessagePreferences() {
+    throw new Exception('Not implemented');
+  }
+
 }

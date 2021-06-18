@@ -51,6 +51,27 @@ class Subscriptions {
   }
 
   /**
+   * Update a subscription
+   *
+   * Update details of an existing subscription.
+   *
+   * @param $subscriptionId
+   * @return mixed
+   * @throws Exception
+   */
+  public function update($subscriptionId) {
+    return $this->client->put(self::BASE_URL, $subscriptionId);
+  }
+
+  public function cancel() {}
+
+  public function reactivate() {}
+
+  public function delete() {}
+
+  public function viewScheduledChanges() {}
+
+  /**
    * List All subscriptions
    *
    * @param array $query
@@ -62,16 +83,139 @@ class Subscriptions {
   }
 
   /**
-   * Update a subscription
    *
-   * Update details of an existing subscription.
-   *
-   * @param $subscriptionId
-   * @return mixed
    * @throws Exception
    */
-  public function update($subscriptionId) {
-    return $this->client->put(self::BASE_URL, $subscriptionId);
+  public function activities() {
+    throw new Exception('Not implemented');
+  }
+
+  /**
+   *
+   * @throws Exception
+   */
+  public function buyOneTimeAddon() {
+    throw new Exception('Not implemented');
+  }
+
+  /**
+   *
+   * @throws Exception
+   */
+  public function associateCoupon() {
+    throw new Exception('Not implemented');
+  }
+
+  /**
+   *
+   * @throws Exception
+   */
+  public function removeCoupon() {
+    throw new Exception('Not implemented');
+  }
+
+  /**
+   *
+   * @throws Exception
+   */
+  public function updateCard () {
+    throw new Exception('Not implemented');
+  }
+
+  /**
+   *
+   * @throws Exception
+   */
+  public function removeCard() {
+    throw new Exception('Not implemented');
+  }
+
+  /**
+   *
+   * @throws Exception
+   */
+  public function addCharge() {
+    throw new Exception('Not implemented');
+  }
+
+  /**
+   *
+   * @throws Exception
+   */
+  public function addContactPerson() {
+    throw new Exception('Not implemented');
+  }
+
+  /**
+   *
+   * @throws Exception
+   */
+  public function postponeRenewal() {
+    throw new Exception('Not implemented');
+  }
+
+  /**
+   *
+   * @throws Exception
+   */
+  public function AddEditDescriptionPlan() {
+    throw new Exception('Not implemented');
+  }
+
+  /**
+   *
+   * @throws Exception
+   */
+  public function AddEditDescriptionAddon() {
+    throw new Exception('Not implemented');
+  }
+
+  /**
+   *
+   * @throws Exception
+   */
+  public function changeToOnlineOffline() {
+    throw new Exception('Not implemented');
+  }
+
+  /**
+   *
+   * @throws Exception
+   */
+  public function updateReference() {
+    throw new Exception('Not implemented');
+  }
+
+  /**
+   *
+   * @throws Exception
+   */
+  public function updateSalesPerson() {
+    throw new Exception('Not implemented');
+  }
+
+  /**
+   *
+   * @throws Exception
+   */
+  public function updateCustomFields() {
+    throw new Exception('Not implemented');
+  }
+
+  /**
+   *
+   * @throws Exception
+   */
+  public function addNote() {
+    throw new Exception('Not implemented');
+  }
+
+  /**
+   *
+   * @throws Exception
+   */
+  public function deleteNote() {
+    throw new Exception('Not implemented');
   }
 
 }

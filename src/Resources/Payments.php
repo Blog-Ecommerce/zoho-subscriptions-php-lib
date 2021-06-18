@@ -40,7 +40,24 @@ class Payments {
    * @return mixed
    * @throws Exception
    */
-  public function wretrieve($invoiceId) {
+  public function retrieve($invoiceId) {
     return $this->client->get([self::BASE_URL, $invoiceId]);
   }
+
+  /**
+   *
+   * @throws Exception
+   */
+  public function update() {
+    throw new Exception('Not implemented');
+  }
+
+  /**
+   *
+   * @throws Exception
+   */
+  public function delete() {
+    throw new Exception('Not implemented');
+  }
+
 }

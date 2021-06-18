@@ -55,7 +55,21 @@ class Invoices {
    * @return mixed
    * @throws Exception
    */
-  public function collectCharge($invoiceId, $params) {
+  public function collectChargeCreditCard($invoiceId, $params) {
+    return $this->client->post([self::BASE_URL, $invoiceId, 'collect'], null, $params);
+  }
+
+  /**
+   * Collect charge
+   *
+   * Charge a customer for an invoice
+   *
+   * @param $invoiceId
+   * @param $params
+   * @return mixed
+   * @throws Exception
+   */
+  public function collectChargeBankAccount($invoiceId, $params) {
     return $this->client->post([self::BASE_URL, $invoiceId, 'collect'], null, $params);
   }
 
@@ -194,6 +208,14 @@ class Invoices {
    */
   public function deleteItemsFromPending($invoiceId, $itemId) {
     return $this->client->delete([self::BASE_URL, $invoiceId, 'lineitems', $itemId]);
+  }
+
+  /**
+   *
+   * @throws Exception
+   */
+  public function addAttachment() {
+    throw new Exception('Not implemented');
   }
 
 }

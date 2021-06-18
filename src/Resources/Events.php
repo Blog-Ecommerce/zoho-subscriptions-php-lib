@@ -43,8 +43,16 @@ class Events {
    * @return mixed
    * @throws Exception
    */
-  public function listAll() {
+  public function list() {
     return $this->client->get(self::BASE_URL);
+  }
+
+  /**
+   *
+   * @throws Exception
+   */
+  public function types() {
+    throw new Exception('Not implemented');
   }
 
 }
