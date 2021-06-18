@@ -1,8 +1,8 @@
 <?php
 
-namespace ZohoSubscriptions\Resources;
+namespace CapsuleB\ZohoSubscriptions\Resources;
 
-use Client;
+use CapsuleB\ZohoSubscriptions\Client;
 
 /**
  * Class CreditNotes

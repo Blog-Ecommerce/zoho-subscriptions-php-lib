@@ -1,8 +1,8 @@
 <?php
 
-namespace ZohoSubscriptions\Resources;
+namespace CapsuleB\ZohoSubscriptions\Resources;
 
-use Client;
+use CapsuleB\ZohoSubscriptions\Client;
 use Exception;
 
 /**
@@ -33,7 +33,7 @@ class Refunds {
    * @return mixed
    * @throws Exception
    */
-  public function creditNote($creditNoteId, $params = []) {
+  public function creditNote($creditNoteId, array $params = []) {
     return $this->client->post(['creditnotes', self::BASE_URL, $creditNoteId], null, $params);
   }
 
@@ -46,7 +46,7 @@ class Refunds {
    * @return mixed
    * @throws Exception
    */
-  public function payment($paymentId, $params = []) {
+  public function payment($paymentId, array $params = []) {
     return $this->client->post(['creditnotes', self::BASE_URL, $paymentId], null, $params);
   }
 

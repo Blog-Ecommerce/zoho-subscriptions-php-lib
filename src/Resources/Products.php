@@ -1,8 +1,8 @@
 <?php
 
-namespace ZohoSubscriptions\Resources;
+namespace CapsuleB\ZohoSubscriptions\Resources;
 
-use Client;
+use CapsuleB\ZohoSubscriptions\Client;
 use Exception;
 
 /**
@@ -27,7 +27,7 @@ class Products {
    * @param array $params
    * @throws Exception
    */
-  public function create($params = []) {
+  public function create(array $params = []) {
     $this->client->post(self::BASE_URL, null, $params);
   }
 

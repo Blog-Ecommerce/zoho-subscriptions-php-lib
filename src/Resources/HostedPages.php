@@ -1,8 +1,8 @@
 <?php
 
-namespace ZohoSubscriptions\Resources;
+namespace CapsuleB\ZohoSubscriptions\Resources;
 
-use Client;
+use CapsuleB\ZohoSubscriptions\Client;
 use Exception;
 
 /**
@@ -69,7 +69,7 @@ class HostedPages {
    * @return mixed
    * @throws Exception
    */
-  public function create($params = []) {
+  public function create(array $params = []) {
     return $this->client->post([self::BASE_URL, 'newsubscription'], null, $params);
   }
 
@@ -84,7 +84,7 @@ class HostedPages {
    * @return mixed
    * @throws Exception
    */
-  public function update($params = []) {
+  public function update(array $params = []) {
     return $this->client->post([self::BASE_URL, 'updatesubscription'], null, $params);
   }
 
@@ -98,7 +98,7 @@ class HostedPages {
    * @return mixed
    * @throws Exception
    */
-  public function updateCard($params = []) {
+  public function updateCard(array $params = []) {
     return $this->client->post([self::BASE_URL, 'updatecard'], null, $params);
   }
 
@@ -112,7 +112,7 @@ class HostedPages {
    * @return mixed
    * @throws Exception
    */
-  public function buyOneTimeAddon($params = []) {
+  public function buyOneTimeAddon(array $params = []) {
     return $this->client->post([self::BASE_URL, 'buyonetimeaddon'], null, $params);
   }
 }

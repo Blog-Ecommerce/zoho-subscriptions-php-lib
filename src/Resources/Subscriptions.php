@@ -1,8 +1,8 @@
 <?php
 
-namespace ZohoSubscriptions\Resources;
+namespace CapsuleB\ZohoSubscriptions\Resources;
 
-use Client;
+use CapsuleB\ZohoSubscriptions\Client;
 use Exception;
 
 /**
@@ -33,7 +33,7 @@ class Subscriptions {
    * @return mixed
    * @throws Exception
    */
-  public function create($params = []) {
+  public function create(array $params = []) {
     return $this->client->post(self::BASE_URL, null, $params);
   }
 
@@ -57,7 +57,7 @@ class Subscriptions {
    * @return mixed
    * @throws Exception
    */
-  public function listAll($query = []) {
+  public function listAll(array $query = []) {
     return $this->client->get(self::BASE_URL, $query);
   }
 

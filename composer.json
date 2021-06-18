@@ -15,7 +15,8 @@
   "minimum-stability": "dev",
   "require": {
     "php": ">=7.1.0",
-    "ext-curl": "*"
+    "ext-curl": "*",
+    "ext-json": "*"
   },
   "require-dev": {
     "phpunit/phpunit": "~4.0"
@@ -25,8 +26,8 @@
     "source": "https://github.com/Blog-Ecommerce/zoho-subscriptions-php-lib"
   },
   "autoload": {
-    "psr-0": {
-      "ZohoSubscriptions": "src/"
+    "psr-4": {
+      "CapsuleB\\ZohoSubscriptions\\": "src/"
     }
   },
   "autoload-dev": {

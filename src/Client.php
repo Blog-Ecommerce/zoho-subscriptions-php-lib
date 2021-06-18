@@ -1,21 +1,24 @@
 <?php
 
-use ZohoSubscriptions\Resources\Addons;
-use ZohoSubscriptions\Resources\BankAccounts;
-use ZohoSubscriptions\Resources\Cards;
-use ZohoSubscriptions\Resources\ContactPersons;
-use ZohoSubscriptions\Resources\Coupons;
-use ZohoSubscriptions\Resources\CreditNotes;
-use ZohoSubscriptions\Resources\Customers;
-use ZohoSubscriptions\Resources\Events;
-use ZohoSubscriptions\Resources\HostedPages;
-use ZohoSubscriptions\Resources\Invoices;
-use ZohoSubscriptions\Resources\Payments;
-use ZohoSubscriptions\Resources\Plans;
-use ZohoSubscriptions\Resources\Products;
-use ZohoSubscriptions\Resources\Refunds;
-use ZohoSubscriptions\Resources\Settings;
-use ZohoSubscriptions\Resources\Subscriptions;
+namespace CapsuleB\ZohoSubscriptions;
+
+use Exception;
+use CapsuleB\ZohoSubscriptions\Resources\Addons;
+use CapsuleB\ZohoSubscriptions\Resources\BankAccounts;
+use CapsuleB\ZohoSubscriptions\Resources\Cards;
+use CapsuleB\ZohoSubscriptions\Resources\ContactPersons;
+use CapsuleB\ZohoSubscriptions\Resources\Coupons;
+use CapsuleB\ZohoSubscriptions\Resources\CreditNotes;
+use CapsuleB\ZohoSubscriptions\Resources\Customers;
+use CapsuleB\ZohoSubscriptions\Resources\Events;
+use CapsuleB\ZohoSubscriptions\Resources\HostedPages;
+use CapsuleB\ZohoSubscriptions\Resources\Invoices;
+use CapsuleB\ZohoSubscriptions\Resources\Payments;
+use CapsuleB\ZohoSubscriptions\Resources\Plans;
+use CapsuleB\ZohoSubscriptions\Resources\Products;
+use CapsuleB\ZohoSubscriptions\Resources\Refunds;
+use CapsuleB\ZohoSubscriptions\Resources\Settings;
+use CapsuleB\ZohoSubscriptions\Resources\Subscriptions;
 
 /**
  * Class Client
@@ -88,14 +91,14 @@ class Client {
   /**
    * @param array $query
    */
-  protected function appendQuery($query = []) {
+  protected function appendQuery(array $query = []) {
     $this->requestQuery += $this->wrap($query);
   }
 
   /**
    * @param array $header
    */
-  protected function appendHeader($header = []) {
+  protected function appendHeader(array $header = []) {
     $this->requestHeader = array_merge($this->requestHeader, $this->wrap($header));
   }
 
@@ -116,7 +119,7 @@ class Client {
    * @return array|mixed|object
    * @throws Exception
    */
-  protected function request($method, $path, $query = [], $params = []) {
+  protected function request($method, $path, array $query = [], array $params = []) {
     // Reset any previous request
     $this->curlClient = curl_init();
 
@@ -167,7 +170,7 @@ class Client {
    * @return mixed
    * @throws Exception
    */
-  public function get($path, $query = [], $params = []) {
+  public function get($path, array $query = [], array $params = []) {
     return $this->request('GET', $path, $this->wrap($query), $this->wrap($params));
   }
 
@@ -180,7 +183,7 @@ class Client {
    * @return mixed
    * @throws Exception
    */
-  public function post($path, $query = [], $params = []) {
+  public function post($path, array $query = [], array $params = []) {
     return $this->request('POST', $path, $this->wrap($query), $this->wrap($params));
   }
 
@@ -193,7 +196,7 @@ class Client {
    * @return mixed
    * @throws Exception
    */
-  public function put($path, $query = [], $params = []) {
+  public function put($path, array $query = [], array $params = []) {
     return $this->request('PUT', $path, $this->wrap($query), $this->wrap($params));
   }
 
@@ -206,7 +209,7 @@ class Client {
    * @return mixed
    * @throws Exception
    */
-  public function delete($path, $query = [], $params = []) {
+  public function delete($path, array $query = [], array $params = []) {
     return $this->request('DELETE', $path, $this->wrap($query), $this->wrap($params));
   }
 
@@ -216,7 +219,7 @@ class Client {
    * @param  mixed  $value
    * @return array
    */
-  private static function wrap($value) {
+  private static function wrap($value): array {
     return ! is_array($value) ? [$value] : $value;
   }
 }

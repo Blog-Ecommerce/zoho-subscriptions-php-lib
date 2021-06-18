@@ -1,8 +1,8 @@
 <?php
 
-namespace ZohoSubscriptions\Resources;
+namespace CapsuleB\ZohoSubscriptions\Resources;
 
-use Client;
+use CapsuleB\ZohoSubscriptions\Client;
 use Exception;
 
 /**
@@ -27,7 +27,7 @@ class Plans {
    * @param array $params
    * @throws Exception
    */
-  public function create($params = []) {
+  public function create(array $params = []) {
     $this->client->post(self::BASE_URL, $params);
   }
 
@@ -46,7 +46,7 @@ class Plans {
    * @return mixed
    * @throws Exception
    */
-  public function update($planId, $params = []) {
+  public function update($planId, array $params = []) {
     return $this->client->put([self::BASE_URL, $planId], null, $params);
   }
 
@@ -56,8 +56,8 @@ class Plans {
    * @return mixed
    * @throws Exception
    */
-  public function delete($planId, $params = []) {
-    return $this->client->delete([self::BASE_URL, $planId]);
+  public function delete($planId, array $params = []) {
+    return $this->client->delete([self::BASE_URL, $planId], null, $params);
   }
 
   /**

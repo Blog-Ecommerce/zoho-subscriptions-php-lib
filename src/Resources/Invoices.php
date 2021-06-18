@@ -1,8 +1,8 @@
 <?php
 
-namespace ZohoSubscriptions\Resources;
+namespace CapsuleB\ZohoSubscriptions\Resources;
 
-use Client;
+use CapsuleB\ZohoSubscriptions\Client;
 use Exception;
 
 /**
@@ -41,7 +41,7 @@ class Invoices {
    * @return mixed
    * @throws Exception
    */
-  public function listAll($query = []) {
+  public function listAll(array $query = []) {
     return $this->client->get(self::BASE_URL, $query);
   }
 
@@ -95,7 +95,7 @@ class Invoices {
    * @return mixed
    * @throws Exception
    */
-  public function email($invoiceId, $params = []) {
+  public function email($invoiceId, array $params = []) {
     return $this->client->post([self::BASE_URL, $invoiceId, 'email'], null, $params);
   }
 
