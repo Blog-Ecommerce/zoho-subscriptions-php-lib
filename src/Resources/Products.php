@@ -7,8 +7,8 @@ use Exception;
 
 /**
  * Class Products
+ * @package CapsuleB\ZohoSubscriptions\Resources
  *
- * @package CapsuleB\ZohoSubscriptions\Resources*
  * @property Client $client
  */
 class Products {

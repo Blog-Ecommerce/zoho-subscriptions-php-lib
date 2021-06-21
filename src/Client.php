@@ -19,6 +19,7 @@ use CapsuleB\ZohoSubscriptions\Resources\Products;
 use CapsuleB\ZohoSubscriptions\Resources\Refunds;
 use CapsuleB\ZohoSubscriptions\Resources\Settings;
 use CapsuleB\ZohoSubscriptions\Resources\Subscriptions;
+use CapsuleB\ZohoSubscriptions\Resources\UnbilledCharges;
 
 /**
  * Class Client
@@ -30,22 +31,23 @@ use CapsuleB\ZohoSubscriptions\Resources\Subscriptions;
  * @property $requestHeader
  * @property $requestQuery
  *
- * @property Addons         $addons
- * @property BankAccounts   $bankAccounts
- * @property Cards          $cards
- * @property ContactPersons $contactPersons
- * @property Coupons        $coupons
- * @property CreditNotes    $creditNotes
- * @property Customers      $customers
- * @property Events         $events
- * @property HostedPages    $hostedPages
- * @property Invoices       $invoices
- * @property Payments       $payments
- * @property Plans          $plans
- * @property Products       $products
- * @property Refunds        $refunds
- * @property Settings       $settings
- * @property Subscriptions  $subscriptions
+ * @property Addons           $addons
+ * @property BankAccounts     $bankAccounts
+ * @property Cards            $cards
+ * @property ContactPersons   $contactPersons
+ * @property Coupons          $coupons
+ * @property CreditNotes      $creditNotes
+ * @property Customers        $customers
+ * @property Events           $events
+ * @property HostedPages      $hostedPages
+ * @property Invoices         $invoices
+ * @property Payments         $payments
+ * @property Plans            $plans
+ * @property Products         $products
+ * @property Refunds          $refunds
+ * @property Settings         $settings
+ * @property Subscriptions    $subscriptions
+ * @property UnbilledCharges  $unbilledCharges
  */
 class Client {
 
@@ -70,22 +72,23 @@ class Client {
     $this->requestQuery = [];
 
     // Init the Resources
-    $this->addons         = new Addons($this);
-    $this->bankAccounts   = new BankAccounts($this);
-    $this->cards          = new Cards($this);
-    $this->contactPersons = new ContactPersons($this);
-    $this->coupons        = new Coupons($this);
-    $this->creditNotes    = new CreditNotes($this);
-    $this->customers      = new Customers($this);
-    $this->events         = new Events($this);
-    $this->hostedPages    = new HostedPages($this);
-    $this->invoices       = new Invoices($this);
-    $this->payments       = new Payments($this);
-    $this->plans          = new Plans($this);
-    $this->products       = new Products($this);
-    $this->refunds        = new Refunds($this);
-    $this->settings       = new Settings($this);
-    $this->subscriptions  = new Subscriptions($this);
+    $this->addons           = new Addons($this);
+    $this->bankAccounts     = new BankAccounts($this);
+    $this->cards            = new Cards($this);
+    $this->contactPersons   = new ContactPersons($this);
+    $this->coupons          = new Coupons($this);
+    $this->creditNotes      = new CreditNotes($this);
+    $this->customers        = new Customers($this);
+    $this->events           = new Events($this);
+    $this->hostedPages      = new HostedPages($this);
+    $this->invoices         = new Invoices($this);
+    $this->payments         = new Payments($this);
+    $this->plans            = new Plans($this);
+    $this->products         = new Products($this);
+    $this->refunds          = new Refunds($this);
+    $this->settings         = new Settings($this);
+    $this->subscriptions    = new Subscriptions($this);
+    $this->unbilledCharges  = new UnbilledCharges($this);
   }
 
   /**

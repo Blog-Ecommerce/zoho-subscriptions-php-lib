@@ -8,8 +8,8 @@ use Exception;
 /**
  * Class HostedPages
  * @link https://www.zoho.com/subscriptions/api/v1/#Hosted-Pages
+ * @package CapsuleB\ZohoSubscriptions\Resources
  *
- * @package CapsuleB\ZohoSubscriptions\Resources*
  * @property Client $client
  */
 class HostedPages {

@@ -7,8 +7,8 @@ use Exception;
 
 /**
  * Class Addons
- *
  * @package CapsuleB\ZohoSubscriptions\Resources*
+ *
  * @property Client $client
  */
 class Addons {

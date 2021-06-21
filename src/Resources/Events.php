@@ -8,8 +8,8 @@ use Exception;
 /**
  * Class Events
  * @link https://www.zoho.com/subscriptions/api/v1/#Events
+ * @package CapsuleB\ZohoSubscriptions\Resources
  *
- * @package CapsuleB\ZohoSubscriptions\Resources*
  * @property Client $client
  */
 class Events {
