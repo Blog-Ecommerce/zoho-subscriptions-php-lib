@@ -3,6 +3,8 @@
 namespace CapsuleB\ZohoSubscriptions;
 
 use Exception;
+use ReflectionException;
+use CapsuleB\ZohoSubscriptions\Enums\EDataCenter;
 use CapsuleB\ZohoSubscriptions\Resources\Addons;
 use CapsuleB\ZohoSubscriptions\Resources\BankAccounts;
 use CapsuleB\ZohoSubscriptions\Resources\Cards;
@@ -25,11 +27,17 @@ use CapsuleB\ZohoSubscriptions\Resources\UnbilledCharges;
  * Class Client
  * @package CapsuleB\ZohoSubscriptions
  *
- * @property $apiKey
- * @property $baseUrl
+ * @property $baseApiUrl
+ * @property $baseAuthUrl
  * @property $curlClient
- * @property $requestHeader
+ * @property $requestUri
  * @property $requestQuery
+ * @property $requestHeader
+ * @property $clientId
+ * @property $clientSecret
+ * @property $accessToken
+ * @property $refreshToken
+ * @property $dataCenter
  *
  * @property Addons           $addons
  * @property BankAccounts     $bankAccounts
@@ -51,25 +59,29 @@ use CapsuleB\ZohoSubscriptions\Resources\UnbilledCharges;
  */
 class Client {
 
-  const BASE_URL = 'https://subscriptions.zoho.eu/api/v1';
-
   /**
    * Client constructor.
-   * @param $apiKey
+   * @param string $clientId
+   * @param string $clientSecret
+   * @param string|null $accessToken
+   * @param string|null $refreshToken
+   * @param string $dataCenter
+   * @throws ReflectionException
    */
-  public function __construct($apiKey) {
+  public function __construct(string $clientId, string $clientSecret, string $accessToken = null, string $refreshToken = null, string $dataCenter = EDataCenter::UNITED_STATES) {
     $this->curlClient = curl_init();
-    $this->apiKey     = $apiKey;
-    $this->baseUrl    = self::BASE_URL;
 
-    // Init the request header
-    $this->requestHeader = [
-      'Content-Type: application/x-www-form-urlencoded;charset=UTF-8',
-      'Authorization: Zoho-authtoken ' . $this->apiKey
-    ];
+    // Init the infos
+    $this->clientId     = $clientId;
+    $this->clientSecret = $clientSecret;
+    $this->accessToken  = $accessToken;
+    $this->refreshToken = $refreshToken;
+    $this->dataCenter   = $dataCenter;
 
-    // Init the request base query
-    $this->requestQuery = [];
+    // Init the url, header and query
+    $this->initBaseUrl();
+    $this->initHeader();
+    $this->initQuery();
 
     // Init the Resources
     $this->addons           = new Addons($this);
@@ -89,6 +101,40 @@ class Client {
     $this->settings         = new Settings($this);
     $this->subscriptions    = new Subscriptions($this);
     $this->unbilledCharges  = new UnbilledCharges($this);
+  }
+
+  /**
+   * Inits the Base Url by checking which one to use base on region
+   * @throws ReflectionException
+   */
+  private function initBaseUrl() {
+    if (empty($this->dataCenter) || !in_array($this->dataCenter, EDataCenter::getValues())) {
+      $this->baseApiUrl = "https://subscriptions.zoho.com/api/v1";
+      $this->baseAuthUrl = "https://accounts.zoho.com";
+    } else {
+      $this->baseApiUrl = "https://subscriptions.zoho{$this->dataCenter}/api/v1";
+      $this->baseAuthUrl = "https://accounts.zoho{$this->dataCenter}";
+    }
+
+    // Defaults the base request uri
+    $this->requestUri = $this->baseApiUrl;
+  }
+
+  /**
+   * Init the request header
+   */
+  private function initHeader() {
+    $this->requestHeader = [
+      'Content-Type: application/x-www-form-urlencoded;charset=UTF-8',
+      'Authorization: Zoho-oauthtoken ' . $this->accessToken
+    ];
+  }
+
+  /**
+   * Init the request base query
+   */
+  private function initQuery() {
+    $this->requestQuery = [];
   }
 
   /**
@@ -112,6 +158,128 @@ class Client {
     $this->appendHeader([
       'X-com-zoho-subscriptions-organizationid:' . $organizationId,
     ]);
+  }
+
+  /**
+   * @throws Exception
+   */
+  public function oAuthUserInfo() {
+    // Reset temporarily the header
+    $this->requestHeader = [
+      'Content-Type: application/json',
+      'Authorization: Bearer ' . $this->accessToken
+    ];
+
+    // Make the request to Generate Access and Refresh Tokens
+    $this->requestUri = $this->baseAuthUrl;
+    $userInfo = $this->get(['oauth/user/info']);
+
+    // Return the retrieved user info
+    return $userInfo;
+  }
+
+  /**
+   * Generating a Grant Token
+   *
+   * @throws Exception
+   */
+  public function oAuthGrantTokenUri() {
+    // Return GET url to be executed from a browser
+  }
+
+  /**
+   * Generate Access and Refresh Tokens
+   *
+   * @param string $code
+   * @param string $scopes
+   * @param string|null $redirectUri
+   * @param string|null $state
+   * @return array|mixed|object
+   * @throws Exception
+   */
+  public function oAuthAccessToken(string $code, string $scopes, string $redirectUri = null, string $state = null) {
+    // Reset temporarily the header
+    $this->requestHeader = [
+      'Content-Type: application/json'
+    ];
+
+    // Make the request to Generate Access and Refresh Tokens
+    $this->requestUri = $this->baseAuthUrl;
+    $responseToken = $this->post(['oauth/v2/token'], [
+      'code'          => $code,
+      'client_id'     => $this->clientId,
+      'client_secret' => $this->clientSecret,
+      'redirect_uri'  => $redirectUri,
+      'grant_type'    => 'authorization_code',
+      'scope'         => $scopes,
+      'state'         => $state
+    ]);
+
+    // Store the new token
+    $this->accessToken  = $responseToken->access_token ?? null;
+    $this->refreshToken = $responseToken->refresh_token ?? null;
+
+    // Return the newly created token
+    return $responseToken;
+  }
+
+  /**
+   * Generate Access Token From Refresh Token
+   *
+   * @param string $refreshToken
+   * @param string|null $redirectUri
+   * @return array|mixed|object
+   * @throws Exception
+   */
+  public function oAuthRefreshToken(string $refreshToken, string $redirectUri = null) {
+    // Reset temporarily the header
+    $this->requestHeader = [
+      'Content-Type: application/json',
+    ];
+
+    // Make the request to Generate Access and Refresh Tokens
+    $this->requestUri = $this->baseAuthUrl;
+    $responseToken = $this->post(['oauth/v2/token'], [
+      'refresh_token' => $refreshToken,
+      'client_id'     => $this->clientId,
+      'client_secret' => $this->clientSecret,
+      'redirect_uri'  => $redirectUri,
+      'grant_type'    => 'refresh_token',
+    ]);
+
+    // Store the new token
+    $this->accessToken  = $responseToken->access_token ?? null;
+    $this->refreshToken = $responseToken->refresh_token ?? null;
+
+    // Return the newly created token
+    return $responseToken;
+  }
+
+  /**
+   * Revoking a Refresh Token
+   *
+   * @param string $token
+   * @return array|mixed|object
+   * @throws Exception
+   */
+  public function oAuthRevokeToken(string $token) {
+    // Reset temporarily the header
+    $this->requestHeader = [
+      'Content-Type: application/json',
+    ];
+
+    // Make the request to Generate Access and Refresh Tokens
+    $this->requestUri = $this->baseAuthUrl;
+    $responseToken = $this->post(['oauth/v2/token/revoke'], [
+      'token' => $token
+    ]);
+
+    // Store the new token
+    $this->accessToken  = $responseToken->access_token ?? null;
+    $this->refreshToken = $responseToken->refresh_token ?? null;
+
+    // Return the newly created token
+    return $responseToken;
   }
 
   /**
@@ -140,7 +308,7 @@ class Client {
     }
 
     // Set the request params
-    curl_setopt($this->curlClient, CURLOPT_URL, $this->baseUrl . '/' . $path);
+    curl_setopt($this->curlClient, CURLOPT_URL, $this->requestUri . '/' . $path);
     curl_setopt($this->curlClient, CURLOPT_RETURNTRANSFER, TRUE);
     curl_setopt($this->curlClient, CURLOPT_HEADER, FALSE);
     curl_setopt($this->curlClient, CURLOPT_CUSTOMREQUEST, $method);
@@ -153,11 +321,11 @@ class Client {
 
     // Does the request
     $response = json_decode(curl_exec($this->curlClient));
-    $httpcode = curl_getinfo($this->curlClient, CURLINFO_HTTP_CODE);
+    $httpCode = curl_getinfo($this->curlClient, CURLINFO_HTTP_CODE);
     curl_close($this->curlClient);
 
     // Return the response
-    if ($httpcode == 200 || $httpcode == 201) {
+    if ($httpCode == 200 || $httpCode == 201) {
       return $response;
     } else {
       throw new Exception($response->message);

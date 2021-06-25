@@ -5,7 +5,7 @@ namespace CapsuleB\ZohoSubscriptions\Enums;
 /**
  * Class InvoiceStatus
  */
-abstract class InvoiceStatus {
+abstract class EInvoiceStatus extends AbstractEnum {
 
   // Status.All
   const ALL = 'Status.All';
