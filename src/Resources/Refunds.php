@@ -34,7 +34,7 @@ class Refunds {
    * @throws Exception
    */
   public function creditNote($creditNoteId, array $params = []) {
-    return $this->client->post(['creditnotes', self::BASE_URL, $creditNoteId], null, $params);
+    return $this->client->post(['creditnotes', self::BASE_URL, $creditNoteId], [], $params);
   }
 
   /**
@@ -47,7 +47,7 @@ class Refunds {
    * @throws Exception
    */
   public function payment($paymentId, array $params = []) {
-    return $this->client->post(['creditnotes', self::BASE_URL, $paymentId], null, $params);
+    return $this->client->post(['creditnotes', self::BASE_URL, $paymentId], [], $params);
   }
 
   /**
@@ -59,6 +59,6 @@ class Refunds {
    * @throws Exception
    */
   public function retrieve($refundId) {
-    return $this->client->get('creditnotes', self::BASE_URL, $refundId);
+    return $this->client->get(['creditnotes', self::BASE_URL, $refundId]);
   }
 }

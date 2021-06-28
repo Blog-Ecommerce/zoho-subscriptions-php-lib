@@ -56,7 +56,7 @@ class Invoices {
    * @throws Exception
    */
   public function collectChargeCreditCard($invoiceId, $params) {
-    return $this->client->post([self::BASE_URL, $invoiceId, 'collect'], null, $params);
+    return $this->client->post([self::BASE_URL, $invoiceId, 'collect'], [], $params);
   }
 
   /**
@@ -70,7 +70,7 @@ class Invoices {
    * @throws Exception
    */
   public function collectChargeBankAccount($invoiceId, $params) {
-    return $this->client->post([self::BASE_URL, $invoiceId, 'collect'], null, $params);
+    return $this->client->post([self::BASE_URL, $invoiceId, 'collect'], [], $params);
   }
 
   /**
@@ -110,7 +110,7 @@ class Invoices {
    * @throws Exception
    */
   public function email($invoiceId, array $params = []) {
-    return $this->client->post([self::BASE_URL, $invoiceId, 'email'], null, $params);
+    return $this->client->post([self::BASE_URL, $invoiceId, 'email'], [], $params);
   }
 
   /**
@@ -150,7 +150,7 @@ class Invoices {
    * @throws Exception
    */
   public function updateAddress($invoiceId, $params) {
-    return $this->client->put([self::BASE_URL, $invoiceId, 'address'], null, $params);
+    return $this->client->put([self::BASE_URL, $invoiceId, 'address'], [], $params);
   }
 
   /**
@@ -164,7 +164,7 @@ class Invoices {
    * @throws Exception
    */
   public function updateCustomFields($invoiceId, $params) {
-    return $this->client->post([self::BASE_URL, $invoiceId, 'customfields'], null, ['custom_fields' => [$params]]);
+    return $this->client->post([self::BASE_URL, $invoiceId, 'customfields'], [], ['custom_fields' => [$params]]);
   }
 
   /**
@@ -178,7 +178,7 @@ class Invoices {
    * @throws Exception
    */
   public function applyMultipleCredits($invoiceId, $params) {
-    return $this->client->post([self::BASE_URL, $invoiceId, 'credits'], null, $params);
+    return $this->client->post([self::BASE_URL, $invoiceId, 'credits'], [], $params);
   }
 
   /**
@@ -193,7 +193,7 @@ class Invoices {
    * @throws Exception
    */
   public function addItemsToPending($invoiceId, $reason, $params) {
-    return $this->client->post([self::BASE_URL, $invoiceId, 'lineitems'], null, ['reason' => $reason, 'invoice_items' => [$params]]);
+    return $this->client->post([self::BASE_URL, $invoiceId, 'lineitems'], [], ['reason' => $reason, 'invoice_items' => [$params]]);
   }
 
   /**

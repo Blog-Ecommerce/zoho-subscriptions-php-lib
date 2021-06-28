@@ -28,7 +28,7 @@ class Products {
    * @throws Exception
    */
   public function create(array $params = []) {
-    $this->client->post(self::BASE_URL, null, $params);
+    $this->client->post(self::BASE_URL, [], $params);
   }
 
   /**
@@ -46,8 +46,8 @@ class Products {
    * @return mixed
    * @throws Exception
    */
-  public function update($productId, $params = []) {
-    return $this->client->put([self::BASE_URL, $productId], null, $params);
+  public function update($productId, array $params = []) {
+    return $this->client->put([self::BASE_URL, $productId], [], $params);
   }
 
   /**

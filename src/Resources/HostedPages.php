@@ -69,7 +69,7 @@ class HostedPages {
    * @throws Exception
    */
   public function create(array $params = []) {
-    return $this->client->post([self::BASE_URL, 'newsubscription'], null, $params);
+    return $this->client->post([self::BASE_URL, 'newsubscription'], [], $params);
   }
 
   /**
@@ -84,7 +84,7 @@ class HostedPages {
    * @throws Exception
    */
   public function update(array $params = []) {
-    return $this->client->post([self::BASE_URL, 'updatesubscription'], null, $params);
+    return $this->client->post([self::BASE_URL, 'updatesubscription'], [], $params);
   }
 
   /**
@@ -98,7 +98,7 @@ class HostedPages {
    * @throws Exception
    */
   public function updateCard(array $params = []) {
-    return $this->client->post([self::BASE_URL, 'updatecard'], null, $params);
+    return $this->client->post([self::BASE_URL, 'updatecard'], [], $params);
   }
 
   /**
@@ -112,6 +112,6 @@ class HostedPages {
    * @throws Exception
    */
   public function buyOneTimeAddon(array $params = []) {
-    return $this->client->post([self::BASE_URL, 'buyonetimeaddon'], null, $params);
+    return $this->client->post([self::BASE_URL, 'buyonetimeaddon'], [], $params);
   }
 }

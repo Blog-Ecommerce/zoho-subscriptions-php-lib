@@ -47,7 +47,7 @@ class Plans {
    * @throws Exception
    */
   public function update($planId, array $params = []) {
-    return $this->client->put([self::BASE_URL, $planId], null, $params);
+    return $this->client->put([self::BASE_URL, $planId], [], $params);
   }
 
   /**
@@ -57,7 +57,7 @@ class Plans {
    * @throws Exception
    */
   public function delete($planId, array $params = []) {
-    return $this->client->delete([self::BASE_URL, $planId], null, $params);
+    return $this->client->delete([self::BASE_URL, $planId], [], $params);
   }
 
   /**

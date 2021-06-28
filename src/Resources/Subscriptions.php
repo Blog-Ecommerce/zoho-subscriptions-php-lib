@@ -34,7 +34,7 @@ class Subscriptions {
    * @throws Exception
    */
   public function create(array $params = []) {
-    return $this->client->post(self::BASE_URL, null, $params);
+    return $this->client->post(self::BASE_URL, [], $params);
   }
 
   /**

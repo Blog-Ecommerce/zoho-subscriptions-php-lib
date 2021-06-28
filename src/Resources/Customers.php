@@ -32,7 +32,7 @@ class Customers {
    * @throws Exception
    */
   public function create($params) {
-    return $this->client->post([self::BASE_URL], null, $params);
+    return $this->client->post([self::BASE_URL], [], $params);
   }
 
   /**
@@ -57,7 +57,7 @@ class Customers {
    * @throws Exception
    */
   public function update($customerId, $params) {
-    return $this->client->put([self::BASE_URL, $customerId], null, $params);
+    return $this->client->put([self::BASE_URL, $customerId], [], $params);
   }
 
   /**
